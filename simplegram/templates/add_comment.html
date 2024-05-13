@@ -1,0 +1,32 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Posting Komentar
+{% endblock title %}
+{% block postarea %}
+<div class="card">
+    <div class="card-header d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-7">
+                <img src="{{url_for('static', filename='uploads/'+postData.image)}}" class="rounded img-fluid">
+            </div>
+            <div class="col-md-5">
+                <strong style="margin-right: 5px;">{{postData.username}}</strong>: {{postData.description}}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form action="" method="post">
+            {{form.csrf_token}}
+            {{form.post_id(value=postData.id)}}
+            <div class="mb-3">
+                {{form.comment.label(class='form-label')}} 
+                {{form.comment(class='form-control', placeholder='Komentar anda di sini')}}
+            </div>
+            
+            <div class="d-grid gap-2">
+            {{form.submit(class='btn btn-primary btn-large btn-block')}}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock postarea %}

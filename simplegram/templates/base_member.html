@@ -1,0 +1,54 @@
+{% extends 'base_layout.html' %}
+{% block maincontent %}
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-9" style="padding: 10px 30px;">
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {% if 'error' in message %}
+            <div class="alert alert-danger" role="alert">
+                {{message['error']}}
+            </div>
+            {% elif 'info' in message %}
+            <div class="alert alert-info" role="alert">
+                {{message['info']}}
+            </div>
+            {% endif %}
+        {% endfor %}    
+        {% endwith %}
+        {% block postarea %}
+        {% endblock postarea %}
+    </div>
+    <div class="col-md-3">
+        <div class="d-flex justify-content-center">
+            {% if current_user.profpic == 'anonymous.jpg' %}
+                <img src="{{url_for('static', filename='anonymous.jpg')}}" 
+                alt="Foto Profil User" style="width: 150px;" class="rounded-circle img-fluid">
+            {% else %}
+                <img src="{{url_for('static', filename='uploads/'+ current_user.profpic)}}" 
+                alt="Foto Profil User" style="width: 150px;" class="rounded-circle img-fluid">        
+            {% endif %}
+        </div>        
+        <div>
+            <div class="d-flex justify-content-center">
+                <strong>@{{current_user.username}}</strong>
+            </div>
+            <div class="d-flex justify-content-center">
+                <strong>{{current_user.fullname}}</strong>
+            </div>
+        </div>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{url_for('sg.add_post')}}" class="btn btn-primary btn-sm">Post Baru</a></li>
+            <li class="list-group-item"><a href="{{url_for('sg.my_profile')}}">Profil Saya</a></li>
+            <li class="list-group-item"><a href="{{url_for('sg.my_post')}}">Postinganku</a></li>
+            <li class="list-group-item"><a href="{{url_for('sg.my_bookmark')}}">Bookmarkku</a></li>
+            <li class="list-group-item"><a href="{{url_for('sg.mailbox')}}">Mailbox</a></li>
+            <li class="list-group-item"><a href="{{url_for('sg.logout')}}" class="btn btn-danger btn-sm">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+{% block modal %}
+{% endblock modal %}
+
+{% endblock maincontent %}

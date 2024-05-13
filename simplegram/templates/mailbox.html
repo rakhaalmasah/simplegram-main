@@ -1,0 +1,66 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Mailbox
+{% endblock title %}
+{% block postarea %}
+<div class="row" >
+    <h3>Mailbox</h3>
+
+    <div class="col-md-12 mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Pesan Diterima</h4>
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Pengirim</th>
+                            <th>Waktu</th>
+                            <th>Pesan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in received_messages %}
+                            <tr>
+                                <td>{{ message.sender.username }}</td>
+                                <td>{{ message.timestamp }}</td>
+                                <td>{{ message.content }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+        <h4>Pesan Dikirim</h4>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Penerima</th>
+                    <th>Waktu</th>
+                    <th>Pesan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in sent_messages %}
+                    <tr>
+                        <td>{{ message.receiver.username }}</td>
+                        <td>{{ message.timestamp }}</td>
+                        <td>{{ message.content }}</td>
+                        <td>
+                            <a href="{{ url_for('sg.delete_message', message_id=message.id) }}" class="btn btn-danger btn-sm">Hapus Pesan</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <a href="{{ url_for('sg.sendmail') }}" class="btn btn-primary">Kirim Pesan Baru</a>
+    </div>
+</div>
+{% endblock postarea %}

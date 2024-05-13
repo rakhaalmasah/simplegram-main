@@ -1,0 +1,26 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    SendMail
+{% endblock title %}
+{% block postarea %}
+<div class="row" >
+    <h3>Kirim Pesan Baru</h3>
+    <div class="col-md-12">
+        <form method="post" action="{{ url_for('sg.sendmail') }}">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <div class="form-group mt-3">
+                {{ form.receiver_id.label }}
+                {{ form.receiver_id(class="form-control") }}
+            </div>
+            <div class="form-group mt-3">
+                {{ form.content.label }}
+                {{ form.content(class="form-control") }}
+            </div>
+            <div class="form-group mt-3"> 
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock postarea %}

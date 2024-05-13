@@ -1,0 +1,27 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Postinganku
+{% endblock title %}
+{% block postarea %}
+<div class="row">
+    <h3>List Postinganku</h3>
+
+    <table class="table table-bordered">
+        <tr>            
+            <th>Gambar</th>
+            <th>Deskripsi</th>
+            <th>&nbsp;</th>
+        </tr>
+        {% for item in postData %}
+        <tr>
+            <td style="width: 210px;"><img src="{{url_for('static', filename='uploads/'+item.image)}}" alt="" class="img-fluid" style="width: 200px;" /></td>
+            <td>{{item.description}}</td>
+            <td style="width: 80px;">
+                <a href="{{url_for('sg.edit_post', post_id=item.id)}}" class="btn btn-warning btn-sm">E</a> 
+                <a href="{{url_for('sg.del_post', post_id=item.id)}}" class="btn btn-danger btn-sm">H</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock postarea %}

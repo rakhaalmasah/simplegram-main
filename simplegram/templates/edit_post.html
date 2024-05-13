@@ -1,0 +1,27 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Edit posting
+{% endblock title %}
+{% block postarea %}
+<div class="card">
+    <div class="card-header d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{url_for('static', filename='uploads/'+post.image)}}" class="rounded img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form action="" method="post">
+            {{form.csrf_token}}
+            <div class="mb-3">
+                <strong>{{form.description.label(class='form-label')}}:</strong> 
+                {{form.description(class='form-control')}}
+            </div>
+            <div class="d-grid gap-2">
+            {{form.submit(class='btn btn-primary btn-large btn-block')}}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock postarea %}

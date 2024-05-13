@@ -1,0 +1,26 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Bookmarkku
+{% endblock title %}
+{% block postarea %}
+<div class="row">
+    <h3>List Bookmarkku</h3>
+
+    <table class="table table-bordered">
+        <tr>            
+            <th>Gambar</th>
+            <th>Deskripsi</th>
+            <th>&nbsp;</th>
+        </tr>
+        {% for item, post in bookmark_data %}
+        <tr>
+            <td style="width: 210px;"><img src="{{url_for('static', filename='uploads/'+post.image)}}" alt="" class="img-fluid" style="width: 200px;" /></td>
+            <td>{{post.description}}</td>
+            <td style="width: 80px;">
+                <a href="{{url_for('sg.del_bookmark', post_id=post.id)}}" class="btn btn-danger btn-sm">Hapus Bookmark</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock postarea %}

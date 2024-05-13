@@ -1,0 +1,36 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Tambah Postingan Baru
+{% endblock title %}
+{% block postarea %}
+<div class="card">
+    <div class="card-header d-flex justify-content-center">
+        <strong>Tambah Postingan</strong>
+    </div>
+    <div class="card-body">
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for errors in form.errors.values() %}
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {{form.csrf_token}}
+            <div class="mb-3">
+            {{form.image.label(class='form-label')}} 
+            {{form.image(class='form-control', placeholder='Upload gambar')}}
+            </div>
+            <div class="mb-3">
+            {{form.description.label(class='form-label')}}
+            {{form.description(class='form-control')}}
+            </div>
+            <div class="d-grid gap-2">
+            {{form.submit(class='btn btn-primary btn-large btn-block')}}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock postarea %}

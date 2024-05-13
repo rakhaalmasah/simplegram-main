@@ -1,0 +1,54 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+Login Aplikasi
+{% endblock title %}
+
+{% block maincontent %}
+<div class="row d-flex justify-content-center" style="margin-top: 80px; margin-bottom: 20px;">
+    <img src="{{url_for('static', filename='logo.png')}}" alt="Logo Aplikasi" style="width: 300px;" class="img-fluid">
+</div>
+<div class="row d-flex justify-content-center">    
+    <div class="col-md-8">
+      {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        {% if 'error' in message %}
+        <div class="alert alert-danger" role="alert">
+            {{message['error']}}
+        </div>
+        {% elif 'info' in message %}
+        <div class="alert alert-info" role="alert">
+            {{message['info']}}
+        </div>
+        {% endif %}
+      {% endfor %}    
+      {% endwith %}
+        <div class="card">
+            <div class="card-header d-flex justify-content-center">
+                <strong>Login Form</strong>
+            </div>
+            <div class="card-body">
+              <form action="" method="post">
+                {{form.csrf_token}}
+                <div class="mb-3">
+                    {{form.username.label(class='form-label')}} 
+                    {{form.username(class='form-control', placeholder='Username')}}
+                  </div>
+                  <div class="mb-3">
+                    {{form.password.label(class='form-label')}}
+                    {{form.password(class='form-control')}}
+                  </div>
+                  <div class="d-grid gap-2">
+                    <p>{{form.remember(placeholder='ingat saya')}} {{form.remember.label(class='form-label')}}</p>
+                    {{form.submit(class='btn btn-primary btn-large btn-block')}}
+                    <!-- <input type="submit" value="Login" class="btn btn-primary btn-large btn-block"> -->
+                  </div>
+                  <div class="mb-3 d-flex justify-content-center" style="margin-top: 10px;">
+                    Belum punya akun, &nbsp; <a href="{{url_for('sg.register')}}"> daftar di sini</a>.
+                  </div>
+              </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock maincontent %}

@@ -1,0 +1,29 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Likes for Post
+{% endblock title %}
+{% block postarea %}
+<div class="card">
+    <div class="card-header d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-7">
+                <img src="{{url_for('static', filename='uploads/'+postData.image)}}" class="rounded img-fluid">
+            </div>
+            <div class="col-md-5">
+                <strong style="margin-right: 5px;">{{postData.username}}</strong>: {{postData.description}}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">List Suka</h5>
+            <ul class="list-group list-group-flush">
+                {% for like in likes %}
+                    <li class="list-group-item">
+                        <strong>{{ like.username }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('sg.index') }}" class="btn btn-primary btn-sm mt-4">Kembali</a>
+    </div>
+</div>
+{% endblock postarea %}

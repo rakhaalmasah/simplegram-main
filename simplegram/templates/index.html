@@ -1,0 +1,99 @@
+{% extends 'base_member.html' %}
+{% block title %}
+Beranda SimpleGram
+{% endblock title %}
+
+{% block postarea %}
+    {% for item in postData %}
+    <div class="card" id="idpost-{{loop.index0}}">
+        <div class="card-header">
+            {% if item.profpic == 'anonymous.jpg' %}
+            <img src="{{url_for('static', filename='anonymous.jpg')}}" alt="Foto Profil Use" style="width: 25px; margin-right: 10px;" class="rounded float-start">
+            {% else %}   
+            <img src="{{url_for('static', filename='uploads/' + item.profpic)}}" alt="Foto Profil Use" style="width: 25px; margin-right: 10px;" class="rounded float-start">
+            {% endif %}
+            <strong><a href="{{ url_for('sg.view_profil', username=item.username) }}">{{ item.fullname }}</a></strong>
+        </div>
+        <img src="{{url_for('static', filename='uploads/'+item.image)}}" class="card-img-top">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a href="{{url_for('sg.add_comment', post_id=item.id)}}">
+                <img src="{{url_for('static', filename='comment.png')}}" alt="Foto Profil Use" style="width: 25px; margin-right: 10px;" class="rounded float-start">
+                </a>
+                {% if item.user_liked %}
+                <a href="{{ url_for('sg.unlike_post', post_id=item.id) }}">
+                    <img src="{{url_for('static', filename='like.png')}}" alt="Foto Profil Use" style="width: 25px; margin-right: 10px;" class="rounded float-start">
+                </a>
+                {% else %}
+                <a href="{{ url_for('sg.like_post', post_id=item.id) }}">
+                    <img src="{{url_for('static', filename='heart.png')}}" alt="Foto Profil Use" style="width: 25px; margin-right: 10px;" class="rounded float-start">
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+        <div class="card-body">
+            <p class="card-text">
+                <strong style="margin-right: 5px;">{{item.username}}</strong>: {{item.description}}
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a href="#" class="btn btn-primary btn-sm" id="comment-{{item.id}}" 
+                   data-bs-toggle="modal" data-bs-target="#mdlComments" onclick="openModal({{item.id}})">{{item.jml_comment}} komentar</a>
+                {% if item.user_bookmarked %}
+                <a href="{{ url_for('sg.dels_bookmark', post_id=item.id) }}" class="btn btn-danger btn-sm">Bookmarked</a>
+               {% else %}
+                <a href="{{ url_for('sg.add_bookmark', post_id=item.id) }}" class="btn btn-info btn-sm">Bookmark</a>
+               {% endif %}
+                <a href="{{ url_for('sg.show_likes', post_id=item.id) }}" class="btn btn-light">{{ item.jml_likes }} Suka</a>
+            </li>                 
+        </ul>
+    </div>
+    <br>
+    {% endfor %}
+{% endblock postarea %}
+
+{% block modal %}
+<div class="modal fade" id="mdlComments" tabindex="-1" aria-labelledby="mdlCommentsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">List Komentar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {% for item in 'xxx' %}
+            <strong style="margin-right: 5px;"><a href="#">username</a></strong>: Deskripsi tulisan yang seharusnya dipotong ketika terlalu panjang. Nah bagaimanakah cara memotongnya?
+            Apakah ada yang tahu caraya, kalau tahu, mbok ya aku dikasih tahu.
+            <hr>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock modal %}
+
+{% block scriptarea %}
+<script>
+baseUrl = '{{url_for("sg.index", _external=True)}}';
+commentUrl = '{{url_for("sg.api_comments", post_id="", _external=True)}}';
+const myModal = new bootstrap.Modal(document.getElementById('mdlComments'), {
+    keyboard: false
+  });
+function openModal(post_id) {
+    fetch(commentUrl+''+post_id)
+      .then(response => response.json())
+      .then(data => {
+        const modalBody = document.querySelector('.modal-body');
+        console.log(data);
+        strComments = '';
+        data.forEach(function(comment){
+            strComment = '<strong style="margin-right: 5px;"><a href="#">@'+comment.username+'</a></strong>: '+comment.comment+'<hr/>';
+            strComments += strComment;
+        });
+        modalBody.innerHTML = strComments;
+        myModal.show();
+      });
+  }
+</script>
+{% endblock scriptarea %}

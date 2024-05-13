@@ -1,0 +1,60 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+Registrasi Pengguna Baru
+{% endblock title %}
+
+{% block maincontent %}
+<div class="row d-flex justify-content-center" style="margin-top: 80px; margin-bottom: 20px;">
+    <img src="{{url_for('static', filename='logo.png')}}" alt="Logo Aplikasi" style="width: 300px;" class="img-fluid">
+</div>
+<div class="row d-flex justify-content-center">    
+    <div class="col-md-8">
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for errors in form.errors.values() %}
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="card">
+            <div class="card-header d-flex justify-content-center">
+                <strong>Form Registrasi</strong>
+            </div>
+            <div class="card-body">
+              <form action="" method="post">
+                {{form.csrf_token}}
+                <div class="mb-3">
+                    {{form.email.label(class='form-label')}}
+                    {{form.email(class='form-control', placeholder='email@email.com')}}
+                </div>
+                <div class="mb-3">
+                    {{form.username.label(class='form-label')}}
+                    {{form.username(class='form-control', placeholder='Username')}}
+                </div>
+                <div class="mb-3">
+                    {{form.fullname.label(class='form-label')}}
+                    {{form.fullname(class='form-control', placeholder='Nama lengkap')}}
+                </div>
+                <div class="mb-3">
+                    {{form.password.label(class='form-label')}}
+                    {{form.password(class='form-control')}}
+                </div>
+                <div class="mb-3">
+                    {{form.confirm.label(class='form-label')}}
+                    {{form.confirm(class='form-control')}}
+                </div>
+                <div class="d-grid gap-2">
+                    {{form.submit(class='btn btn-primary btn-large btn-block')}}
+                </div>
+                <div class="mb-3 d-flex justify-content-center" style="margin-top: 10px;">
+                Sudah punya akun, &nbsp; <a href="{{url_for('sg.login')}}">Login di sini</a>.
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock maincontent %}

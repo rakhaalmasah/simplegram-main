@@ -1,0 +1,43 @@
+{% extends 'base_member.html' %}
+{% block title %}
+    Profil Saya
+{% endblock title %}
+{% block postarea %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-center">Profil @{{ user.username }}</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nama lengkap</th>
+                    <td>{{ user.fullname }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Deskripsi singkat</th>
+                    <td>{{ user.description }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Foto Profil</th>
+                    <td>
+                        {% if user.profpic == 'anonymous.jpg' %}
+                            <img src="{{url_for('static', filename='anonymous.jpg')}}" alt="Default" class="img-thumbnail">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='uploads/' + user.profpic) }}" alt="Profil Picture" class="img-thumbnail">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"></th>
+                    <td><a href="{{ url_for('sg.index') }}" class="btn btn-primary btn-sm mt-4">Kembali</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock postarea %}

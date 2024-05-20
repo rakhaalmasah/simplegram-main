@@ -8,7 +8,7 @@ DB = {
     # 'host': 'localhost:3305',
     'user': 'root',
     # 'pass': 'develmysql', 
-    'pass': 'qonaahXk3*',
+    'pass': 'password',
     'name': 'simplegram'
 }
 

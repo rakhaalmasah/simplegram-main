@@ -1,32 +1,33 @@
 # SimpleGram
 
-Contoh media sosial untuk upload foto dan komentar foto sederhana.
+A sample social media application for uploading photos and commenting on photos.
 
-Dibuat untuk latihan membuat aplikasi web dengan Flask.
+Created as a practice project for building a web application with Flask.
 
-Fitur Tersedia :
+Available Features:
 
-Register untuk pengguna baru
+Register for new users
 
 Login & Logout
 
-Posting foto baru
+Post new photos
 
-Mengomentari foto yang ada
+Comment on existing photos
 
-Edit & Hapus pada postingan fotonya sendiri
+Edit & Delete your own photo posts
 
-Edit profil pengguna
+Edit user profile
 
-Upload foto profil pengguna
+Upload profile pictures
 
-Like dan daftar like
+Like and view likes list
 
-Bookmark Post
+Bookmark posts
 
-Pesan private sederhana
+Simple private messaging
 
-Cara menggunakan:
+How to use:
+
 ```
 pip install -r requirements.txt
 python main.py
